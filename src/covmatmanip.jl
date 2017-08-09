@@ -1,6 +1,6 @@
 # Functions for manipulating covariance matrices
 
-function dropcol_(c::LinAlg.Cholesky, idx::Integer)
+function dropindex_(c::LinAlg.Cholesky, idx::Integer)
     n = size(c, 1)
     cU = c[:U][:, [1:(idx-1); (idx+1):end; idx]]
     for i in idx:(n-1)
@@ -10,24 +10,24 @@ function dropcol_(c::LinAlg.Cholesky, idx::Integer)
 end
 
 """
-    function dropcol(c::LinAlg.Cholesky, idx::Integer)
+    function dropindex(c::LinAlg.Cholesky, idx::Integer)
 
 Drop the `idx` column from the Cholesky factorization `c` without
 re-forming the original matrix.
 """
-function dropcol(c::LinAlg.Cholesky, idx::Integer)
+function dropindex(c::LinAlg.Cholesky, idx::Integer)
     idx ≤ size(c, 1) || error("Index out of bounds")
-    dropcol_(c, idx)
+    dropindex_(c, idx)
 end
 
 
 """
-    dropcol(c::LinAlg.Cholesky, idx::Vector{T} where T<:Integer)
+    dropindex(c::LinAlg.Cholesky, idx::Vector{T} where T<:Integer)
 
 Drop the columns in `idx` from the Cholesky factorization `c` without
 re-forming the original matrix.
 """
-function dropcol(c::LinAlg.Cholesky, idx::Vector{T} where T<:Integer)
+function dropindex(c::LinAlg.Cholesky, idx::Vector{T} where T<:Integer)
     # Get sizes
     n = size(c, 1)
     n_drop = length(idx)
