@@ -3,20 +3,11 @@ module ConditionalMvNormals
 using Distributions
 using PDMats
 
+#import Distributions.MvNormal
+
 export
-    AbstractMvNormal,
-    ConditionalMvNormal
+    condition
 
-abstract type ConditionalMvNormal end
-
-struct ConditionalMvNormal{C<:Integer,
-                           V<:Real,
-                           Cov<:AbstractPDMat{V},
-                           Mean<:Union{Vector{V},Distributions.ZeroVector{V}}}
-    μ::Mean
-    Σ::Cov
-    cond_idx::Vector{C}
-    cond_val::Vector{V}
-end
+include("condition_noisefree.jl")
 
 end # module
